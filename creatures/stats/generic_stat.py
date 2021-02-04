@@ -1,4 +1,7 @@
 
+from creatures.stats.modifier import ModifierType
+
+
 class Stat(object):
   def __init__(self, value):
     self._base = value
@@ -14,12 +17,20 @@ class Stat(object):
     
   @property
   def value(self):
+    m = 1
+    s = 0
     v = self._base
     for pm in self._perma_mods:
-      v += pm.value
+      if ModifierType.ADD == pm.mod_type:
+        s += pm.value
+      elif ModifierType.MUL == pm.mod_type:
+        m *= pm.value
     for tm in self._temp_mods:
-      v += tm.value
-    return v
+      if ModifierType.ADD == tm.mod_type:
+        s += tm.value
+      elif ModifierType.MUL == tm.mod_type:
+        m *= tm.value
+    return self._base * m + s
     
   def get_description(self):
     s = 'Value: %s\nBase: %s\nPermanent Modifiers:' % (self.value, self.base)

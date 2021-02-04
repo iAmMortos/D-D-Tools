@@ -2,6 +2,9 @@
 from enum import Enum
 
 class AbilityScoreType (Enum):
-  STR
-  DEX
-  INT
+  STR = "Strength"
+  DEX = "Dexterity"
+  CON = "Constitution"
+  INT = "Intelligence"
+  WIS = "Wisdom"
+  CHA = "Charisma"
